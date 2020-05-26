@@ -1,0 +1,143 @@
+
+{
+    //GLOBAL
+
+    "layer": "top",
+
+    "position": "bottom",
+
+    "modules-left": [
+        "cpu",
+	"memory"
+//        "disk"
+    ],
+  
+    "modules-center": [
+        "network"
+    ],
+
+    "modules-right": [
+    	"tray",
+    	"backlight",
+	"pulseaudio"
+    ],
+
+//MODULES
+
+
+    "battery": {
+        "interval": 1,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        // Connected to AC
+        "format": " {capacity}%", // Icon: bolt
+        // Not connected to AC
+        "format-discharging": " {capacity}%",
+        "format-icons": [
+            "", // Icon: battery-full
+            "", // Icon: battery-three-quarters
+            "", // Icon: battery-half
+            "", // Icon: battery-quarter
+            ""  // Icon: battery-empty
+        ],
+        "tooltip": false
+    },
+
+
+
+
+    "cpu": {
+        "interval": 5,
+        "tooltip": false,
+        "format": " {usage}%", //Icon: microchip
+        "states": {
+          "warning": 70,
+          "critical": 90
+        }
+    },
+
+   
+    "memory": {
+        "interval": 5,
+        "format": " {}%", // Icon: memory
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+    "network": {
+        "interval": 5,
+        "format-wifi": "  {essid}", // Icon: wifi
+        "format-ethernet": "  {ifname}", // Icon: ethernet
+        "format-disconnected": "Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}",
+	"on-click": "swaymsg exec cmst"
+    },
+
+    "sway/mode": {
+        "format": "<span style=\"italic\">  {}</span>",
+        "tooltip": true
+    },
+
+    
+    "sway/workspaces": {
+        "all-outputs": false,
+        "disable-scroll": true,
+        "format": "{name}",
+        "format-icons": {
+            "1:www": "龜", // Icon: firefox-browser
+            "2:mail": "", // Icon: mail
+            "3:editor": "", // Icon: code
+            "4:terminals": "", // Icon: terminal
+            "5:portal": "", // Icon: terminal
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        }
+    },
+
+    "pulseaudio": {
+        "scroll-step": 1,
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "disk": {
+        "interval": 5,
+        "format": " {percentage_used:2}%",
+        "path": "/"
+   
+    },
+      "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon} {percent}% ",
+        "states": [0,50],
+        "format-icons": ["", ""]
+    },
+    "tray": {
+        "icon-size": 22
+
+        //"spacing": 10
+    },
+
+   
+    "custom/bar": {
+        "format": "",
+        "tooltip": false
+    }
+}
+

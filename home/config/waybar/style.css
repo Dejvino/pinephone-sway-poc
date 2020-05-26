@@ -1,0 +1,146 @@
+/* Reset styles */
+* {
+    border: none;
+    border-radius: 1;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* The  bar */
+#waybar {
+    background: #282828;
+    color: white;
+    font-family: "awesome 5";
+    font-size: 10px;
+    font-weight: bold;
+}
+
+#disk,
+#backlight,
+#battery,
+#clock,
+#cpu,
+#custom-keyboard-layout,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#custom-alsa,
+#tray {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+/*modules style*/
+#disk {
+    background: #d79921;
+    color: #282828;
+}
+
+#backlight {
+    background: #689d6a;
+    color: #282828;
+}
+
+#battery {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    background: #fbf1c7;
+    color: #282828;
+}
+
+#battery.warning {
+    color: orange;
+}
+
+#clock.date {
+    background: #d65d0e;
+    color: #282828;
+    font-weight: bold;
+}
+
+#clock.time {
+    background: #eceff4;
+    color: #282828;
+    font-weight: bold;
+}
+
+#cpu {
+    background: #af3a03;
+    color: #282828;
+}
+
+#cpu.warning {
+    color: orange;
+}
+
+#cpu.critical {
+    color: orange;
+}
+
+#memory {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    background: #458588;
+    color: #282828;
+}
+
+#memory.warning {
+    color: orange;
+}
+
+#mode {
+    background: #64727d;
+    border-top: 2px solid white;
+    /* To compensate for the top border and still have vertical centering */
+    padding-bottom: 2px;
+}
+
+#network {
+    background: #98971a;
+    color: #282828;
+}
+
+#network.disconnected {
+    color: orange;
+}
+
+#pulseaudio {
+    background: #8f3f71;
+    color: #282828;
+}
+
+#pulseaudio.muted {
+    background: #98971a;
+    color: #282828;
+}
+
+#tray {
+    background: transparent;
+}
+
+#window {
+    font-weight: bold;
+}
+
+#workspaces button {
+    font-weight: bold;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #076678;
+    background: #282828;
+    border-radius: 10px;
+}
+
+#workspaces button.focused {
+    font-weight: bold;
+    color: #282828;
+    background-color: #076678;
+}
+
