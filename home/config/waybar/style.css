@@ -27,6 +27,8 @@
 #network,
 #pulseaudio,
 #custom-alsa,
+#custom-kill,
+#custom.kill,
 #tray {
     padding-left: 8px;
     padding-right: 8px;
@@ -117,6 +119,11 @@
 
 #pulseaudio.muted {
     background: #98971a;
+    color: #282828;
+}
+
+#custom-kill {
+    background: #a32a03;
     color: #282828;
 }
 

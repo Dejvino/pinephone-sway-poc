@@ -36,10 +36,11 @@ That's it. You should now have everything in place. Reboot to use the new settin
 * postmarketOS - base Linux distribution (though any other would work as well)
 * sway (pmos package) - tiling Wayland compositor
 * squeekboard (pmos package) - on-screen keyboard for Wayland
-** [terminal.yaml](https://source.puri.sm/btantau/squeekboard/blob/btantau-master-patch-76686/data/keyboards/terminal.yaml) - keyboard layout based on this improved version
+* * [terminal.yaml](https://source.puri.sm/btantau/squeekboard/blob/btantau-master-patch-76686/data/keyboards/terminal.yaml) - keyboard layout based on this improved version
 * bemenu (pmos package) - app launcher
 * waybar (pmos package) - Wayland status bar
-** [carlosdss22/dotfiles](https://github.com/carlosdss22/dotfiles/tree/master/waybar) - styles used
+* * [carlosdss22/dotfiles](https://github.com/carlosdss22/dotfiles/tree/master/waybar) - styles used
+* htop (pmos package) - Processes monitoring
 * [sxmo-lisgd](https://git.sr.ht/~mil/lisgd) - gesture detection daemon
 * [sxmo-utils](https://git.sr.ht/~mil/sxmo-utils) - various utilities for the PinePhone
 

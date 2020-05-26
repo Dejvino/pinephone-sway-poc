@@ -18,7 +18,7 @@ set $term termite
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run | xargs swaymsg exec --
+set $menu bemenu-run -n -p RUN | xargs swaymsg exec --
 
 ### Output configuration
 #
