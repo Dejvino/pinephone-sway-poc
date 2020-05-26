@@ -11,13 +11,19 @@ help:
 ###
 # INSTALL - USER
 ###
-install_user: install_user_sway install_user_waybar
+install_user: install_user_sway install_user_waybar install_user_htop
 
 install_user_sway:
+	mkdir -p $(HOME_PATH)/.config/sway/
 	cp home/config/sway/* $(HOME_PATH)/.config/sway/config
 
 install_user_waybar:
+	mkdir -p $(HOME_PATH)/.config/waybar/
 	cp home/config/waybar/* $(HOME_PATH)/.config/waybar/
+
+install_user_htop:
+	mkdir -p $(HOME_PATH)/.config/htop/
+	cp home/config/htop/* $(HOME_PATH)/.config/htop/
 
 ###
 # INSTALL - SYSTEM
@@ -33,7 +39,7 @@ install_system_lightdm:
 ###
 # FETCH
 ###
-fetch: fetch_sway fetch_waybar fetch_lightdm
+fetch: fetch_sway fetch_waybar fetch_htop fetch_lightdm
 
 fetch_sway:
 	cp $(HOME_PATH)/.config/sway/config home/config/sway/config
@@ -41,6 +47,9 @@ fetch_sway:
 fetch_waybar:
 	cp $(HOME_PATH)/.config/waybar/config* home/config/waybar/
 	cp $(HOME_PATH)/.config/waybar/style.css home/config/waybar/
+
+fetch_htop:
+	cp $(HOME_PATH)/.config/htop/htoprc home/config/htop/
 
 fetch_lightdm:
 	cp /usr/share/wayland-sessions/sway.desktop usr/share/wayland-sessions/
