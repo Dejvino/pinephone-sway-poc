@@ -133,7 +133,8 @@
         // "device": "acpi_video1",
         "format": "{icon} {percent}% ",
         "states": [0,50],
-        "format-icons": ["", ""]
+        "format-icons": ["", ""],
+	"on-click": "termite -e swayphone_backlightselect"
     },
     "tray": {
         "icon-size": 22
