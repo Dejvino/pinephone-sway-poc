@@ -2,7 +2,7 @@
 
 BACKLIGHT=~/.backlight
 
-dialog --menu EXECUTE 20 40 12 \
+dialog --menu EXECUTE 20 40 10 \
 	10 FULL \
 	9  . \
 	8  . \
@@ -10,7 +10,6 @@ dialog --menu EXECUTE 20 40 12 \
 	6  . \
 	5  . \
 	4  . \
-	3  . \
-	2  MIN \
+	3  MIN \
 	2>$BACKLIGHT && pptk-backlight set `cat $BACKLIGHT`
 
