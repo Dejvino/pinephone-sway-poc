@@ -3,12 +3,18 @@
 MENUOPTIONS=~/.menuoptions
 MENUSELECT=~/.menuselect
 
+HEIGHT=0
+WIDTH=0
+LINES=0
+
 if [ ! -f $MENUOPTIONS ]
 then
 	echo 'termite Terminal' > $MENUOPTIONS
-	echo 'audacious Music_Player' >> $MENUOPTIONS
-	echo 'firefox Web_Browser' >> $MENUOPTIONS
+	echo 'audacious "Music Player"' >> $MENUOPTIONS
+	echo 'firefox "Web Browser"' >> $MENUOPTIONS
+	echo '"sudo reboot" Restart' >> $MENUOPTIONS
+	echo '"sudo poweroff" Shutdown' >> $MENUOPTIONS
 fi
 
-dialog --menu EXECUTE 15 40 6 `cat $MENUOPTIONS` 2>$MENUSELECT && swaymsg exec `cat $MENUSELECT`
+cat $MENUOPTIONS | xargs dialog --menu EXECUTE $HEIGHT $WIDTH $LINES  2>$MENUSELECT && swaymsg exec "`cat $MENUSELECT`"
 
