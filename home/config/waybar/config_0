@@ -38,8 +38,8 @@
 	"timezone": "Europe/Berlin",
         "format": " {:%e %b %Y}", // Icon: calendar-alt
         //"tooltip-format": "{:%e %B %Y}"
-        "tooltip": true
-
+        "tooltip": true,
+	"on-click": "termite -e swayphone_menuselect"
     },
 
     "battery": {

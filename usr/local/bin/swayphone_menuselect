@@ -1,0 +1,14 @@
+#!/bin/bash
+
+MENUOPTIONS=~/.menuoptions
+MENUSELECT=~/.menuselect
+
+if [ ! -f $MENUOPTIONS ]
+then
+	echo 'termite Terminal' > $MENUOPTIONS
+	echo 'audacious Music_Player' >> $MENUOPTIONS
+	echo 'firefox Web_Browser' >> $MENUOPTIONS
+fi
+
+dialog --menu EXECUTE 15 40 6 `cat $MENUOPTIONS` 2>$MENUSELECT && swaymsg exec `cat $MENUSELECT`
+

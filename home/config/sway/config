@@ -80,7 +80,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Ctrl+c reload
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
@@ -172,6 +172,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
 #
 # Resizing containers:
 #
@@ -197,6 +198,21 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+#
+# Power Button
+#
+set $lockapp swaylock
+set $lock   '$lockapp -f -c 000000'
+set $unlock 'killall $lockapp'
+set $pplock   'pptk-led set red 1; pptk-cpu-sleep enable; pptk-backlight get > ~/.backlight ; pptk-backlight set 0'
+set $ppunlock 'pptk-led set red 0; pptk-cpu-sleep disable; pptk-backlight set `cat ~/.backlight`'
+## wish this worked...
+#bindsym XF86PowerOff exec $lock
+#bindsym --locked XF86PowerOff exec $unlock
+# alternative:
+bindcode 124 exec $lock; exec $pplock
+bindcode --locked 124 exec $unlock; exec $ppunlock
+
 # Scale the touchscreen LCD 2x 
 output DSI-1 scale 2
 
@@ -204,9 +220,28 @@ output DSI-1 scale 2
 exec squeekboard
 
 # Gesture detection
-exec lisgd
+exec lisgd \
+ -g "1,l,r, false" \
+ -g "1,r,l, false" \
+ -g "1,u,d, false" \
+ -g "1,d,u, false" \
+ -g "2,l,r, swaymsg workspace prev" \
+ -g "2,r,l, swaymsg workspace next" \
+ -g "2,u,d, swaymsg exec swayphone_keyboard_hide" \
+ -g "2,d,u, swaymsg exec swayphone_keyboard_show" \
+ -g "3,l,r, swaymsg focus right" \
+ -g "3,r,l, swaymsg focus left" \
+ -g "3,u,d, swaymsg focus down" \
+ -g "3,d,u, swaymsg focus up" \
+ -g "4,l,r, swaymsg move right" \
+ -g "4,r,l, swaymsg move left" \
+ -g "4,u,d, swaymsg move down" \
+ -g "4,d,u, swaymsg move up"
 
 # Top and bottom status bar
 exec "waybar -c ~/.config/waybar/config_0 -b b0"
 exec "waybar -c ~/.config/waybar/config_1 -b b1"
+
+# Restore backlight
+exec "cat ~/.backlight && pptk-backlight set `cat ~/.backlight`"
 
