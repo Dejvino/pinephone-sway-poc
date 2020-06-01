@@ -39,6 +39,13 @@ The bars show you CPU/MEM usage, backlight brightness, time, etc. Touching them 
 ### Touch gestures
 Swiping two fingers up / down activates or hides the on-screen keyboard. Swiping two fingers left / right changes the active workspace. Three fingers change the active window in the direction of the swipe. Four fingers move the active window accordingly.
 
+## TIP!
+You can use this as a configs backup mechanism!
+```
+$ make fetch
+```
+Running this command gathers the relevant config files from your running system and replaces the files in the repository. You can then `git add` and `commit` your own changes, straight from the phone! This is actually how the config files here were created.
+
 ## Components
 * postmarketOS - base Linux distribution (though any other would work as well)
 * sway (pmos package) - tiling Wayland compositor
