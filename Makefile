@@ -28,7 +28,7 @@ install_user_htop:
 ###
 # INSTALL - SYSTEM
 ###
-install_system: install_system_check install_system_lightdm install_system_bin
+install_system: install_system_check install_system_lightdm install_system_bin install_pptk
 
 install_system_check:
 	@echo "Note: install needs to be run as root."
@@ -39,6 +39,11 @@ install_system_lightdm:
 install_system_bin:
 	chmod go+rx usr/local/bin/*
 	cp usr/local/bin/* /usr/local/bin/
+
+install_pptk:
+	cd pinephone-toolkit && meson build 
+	ninja -C pinephone-toolkit/build
+	ninja -C pinephone-toolkit/build install
 
 ###
 # FETCH

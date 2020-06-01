@@ -201,11 +201,11 @@ bindsym $mod+r mode "resize"
 #
 # Power Button
 #
+set $pplock   'swayphone_power_sleep'
+set $ppunlock 'swayphone_power_wakeup'
 set $lockapp swaylock
 set $lock   '$lockapp -f -c 000000'
 set $unlock 'killall $lockapp'
-set $pplock   'pptk-led set red 1; pptk-cpu-sleep enable; pptk-backlight get > ~/.backlight ; pptk-backlight set 0'
-set $ppunlock 'pptk-led set red 0; pptk-cpu-sleep disable; pptk-backlight set `cat ~/.backlight`'
 ## wish this worked...
 #bindsym XF86PowerOff exec $lock
 #bindsym --locked XF86PowerOff exec $unlock
@@ -213,8 +213,18 @@ set $ppunlock 'pptk-led set red 0; pptk-cpu-sleep disable; pptk-backlight set `c
 bindcode 124 exec $lock; exec $pplock
 bindcode --locked 124 exec $unlock; exec $ppunlock
 
+exec swayidle -w \
+          timeout 15 'swaymsg exec $lock; $pplock' \
+               resume 'swaymsg exec $unlock; $ppunlock' \
+          before-sleep 'swaymsg exec $lock; $pplock'
+
 # Scale the touchscreen LCD 2x 
-output DSI-1 scale 2
+#output DSI-1 scale 2
+
+# Bind input and output for correct rotation support
+input 1046:4097:Goodix_Capacitive_TouchScreen map_to_output DSI-1
+#output DSI-1 transform 90
+output DSI-1 transform 0
 
 # Keyboard
 exec squeekboard
@@ -243,5 +253,5 @@ exec "waybar -c ~/.config/waybar/config_0 -b b0"
 exec "waybar -c ~/.config/waybar/config_1 -b b1"
 
 # Restore backlight
-exec "cat ~/.backlight && pptk-backlight set `cat ~/.backlight`"
+exec 'swayphone_power_wakeup'
 

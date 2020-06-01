@@ -1,0 +1,10 @@
+#!/bin/bash
+
+pptk-led set red 1
+pptk-cpu-sleep enable
+
+# save current backlight for wakeup
+pptk-backlight get > ~/.backlight
+# shut down backlight
+pptk-backlight set 0
+
