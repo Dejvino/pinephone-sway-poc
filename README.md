@@ -1,7 +1,7 @@
 # pinephone-sway-poc
 Sway UI configured for PINE64 PinePhone (Proof Of Concept)
 
-You can find ready-made config files and installation instructions on how to set up Sway on postmarketOS and use it with a PinePhone.
+You can find ready-made config files, scripts and installation instructions on how to set up Sway on postmarketOS and use it with a PinePhone.
 
 ![Screenshots](./screenshots.png)
 
@@ -28,9 +28,16 @@ $ sudo make install_system
 That's it. You should now have everything in place. Reboot to use the new settings.
 
 ## Usage
+Study the provided config files and shell scripts to get more details. The following is just an introduction.
 
-**TODO: this.**
+### Power Button
+The power button activates or deactivates a "sleep mode", in which the backlight is turned off, all the CPUs except for the primary one are shut down and the red LED is turned on to indicate the phone is turned on.
 
+### Top and bottom waybar
+The bars show you CPU/MEM usage, backlight brightness, time, etc. Touching them opens a relevant app (e.g. NetworkManager or htop). Touching the date opens a custom "quick execute" menu to launch an app. The **[x]** icon closes the active window. Touching the backlight indicator brings up a custom brightness setting app.
+
+### Touch gestures
+Swiping two fingers up / down activates or hides the on-screen keyboard. Swiping two fingers left / right changes the active workspace. Three fingers change the active window in the direction of the swipe. Four fingers move the active window accordingly.
 
 ## Components
 * postmarketOS - base Linux distribution (though any other would work as well)
