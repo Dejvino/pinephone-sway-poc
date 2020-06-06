@@ -28,7 +28,7 @@ install_user_htop:
 ###
 # INSTALL - SYSTEM
 ###
-install_system: install_system_check install_system_lightdm install_system_bin install_pptk
+install_system: install_system_check install_system_lightdm install_system_bin install_pptk install_rot8 install_lisgd
 
 install_system_check:
 	@echo "Note: install needs to be run as root."
@@ -44,6 +44,16 @@ install_pptk:
 	cd pinephone-toolkit && meson build 
 	ninja -C pinephone-toolkit/build
 	ninja -C pinephone-toolkit/build install
+
+install_rot8:
+	cd rot8 && cargo build --release
+	cp rot8/target/release/rot8 /usr/local/bin/
+
+install_lisgd:
+	cd lisgd && git fetch origin && git reset --hard origin/master
+	cd lisgd && git apply ../patches/lisgd.patch
+	cd lisgd && make
+	cp lisgd/lisgd /usr/local/bin/
 
 ###
 # FETCH

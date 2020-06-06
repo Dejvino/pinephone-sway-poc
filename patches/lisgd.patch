@@ -1,0 +1,39 @@
+diff --git a/lisgd.c b/lisgd.c
+index 9d3442b..78f6a3c 100644
+--- a/lisgd.c
++++ b/lisgd.c
+@@ -109,19 +109,21 @@ touchup(struct libinput_event *e)
+ 		);
+ 	}
+ 
+-	if (xend[slot] > xstart[slot] && fabs(xend[slot] - xstart[slot]) > threshold) {
+-		start = Left;
+-		end = Right;
+-	} else if (xend[slot] < xstart[slot] && fabs(xend[slot] - xstart[slot]) > threshold) {
+-		start = Right;
+-		end = Left;
+-	} else if (yend[slot] > ystart[slot] && fabs(yend[slot] - ystart[slot]) > threshold) {
+-		start = Up;
+-		end = Down;
+-	} else if (yend[slot] < ystart[slot] && fabs(yend[slot] - ystart[slot]) > threshold) {
+-		start = Down;
+-		end = Up;
+-	} else {
++	int move_x = fabs(xend[slot] - xstart[slot]) > threshold
++		? (xend[slot] > xstart[slot] ? 1 : -1) : 0;
++	int move_y = fabs(yend[slot] - ystart[slot]) > threshold
++		? (yend[slot] > ystart[slot] ? 1 : -1) : 0;
++	switch (move_x * 100 + move_y) {
++	    case -100 -1: start = Right; end = Up; break;
++	    case -100 +0: start = Right; end = Left; break;
++	    case -100 +1: start = Right; end = Down; break;
++	    case +0   -1: start = Down; end = Up; break;
++	    case +0   +1: start = Up; end = Down; break;
++	    case +100 -1: start = Left; end = Up; break;
++	    case +100 +0: start = Left; end = Right; break;
++	    case +100 +1: start = Left; end = Down; break;
++	    case +0   +0:
++	    default:
+ 		if (verbose) {
+ 			fprintf(stderr, "Input didn't match a known gesture\n");
+ 		}

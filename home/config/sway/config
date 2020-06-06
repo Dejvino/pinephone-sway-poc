@@ -111,27 +111,33 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Workspaces:
 #
+    set $W3 '3:F'
+    set $W9 '9:K'
+
+    for_window [app_id="firefox"] move workspace $W3; workspace $W3; border none
+    for_window [app_id="keepassxc"] move workspace $W9; workspace $W9; border none
+
     # Switch to workspace
     bindsym $mod+1 workspace 1
     bindsym $mod+2 workspace 2
-    bindsym $mod+3 workspace 3
+    bindsym $mod+3 workspace $W3
     bindsym $mod+4 workspace 4
     bindsym $mod+5 workspace 5
     bindsym $mod+6 workspace 6
     bindsym $mod+7 workspace 7
     bindsym $mod+8 workspace 8
-    bindsym $mod+9 workspace 9
+    bindsym $mod+9 workspace $W9
     bindsym $mod+0 workspace 10
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace 1
     bindsym $mod+Shift+2 move container to workspace 2
-    bindsym $mod+Shift+3 move container to workspace 3
+    bindsym $mod+Shift+3 move container to workspace $W3
     bindsym $mod+Shift+4 move container to workspace 4
     bindsym $mod+Shift+5 move container to workspace 5
     bindsym $mod+Shift+6 move container to workspace 6
     bindsym $mod+Shift+7 move container to workspace 7
     bindsym $mod+Shift+8 move container to workspace 8
-    bindsym $mod+Shift+9 move container to workspace 9
+    bindsym $mod+Shift+9 move container to workspace $W9
     bindsym $mod+Shift+0 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
@@ -218,13 +224,16 @@ exec swayidle -w \
                resume 'swaymsg exec $unlock; $ppunlock' \
           before-sleep 'swaymsg exec $lock; $pplock'
 
-# Scale the touchscreen LCD 2x 
-#output DSI-1 scale 2
+# Scale the touchscreen LCD UI
+output DSI-1 scale 2
 
 # Bind input and output for correct rotation support
 input 1046:4097:Goodix_Capacitive_TouchScreen map_to_output DSI-1
 #output DSI-1 transform 90
 output DSI-1 transform 0
+
+# Display rotation daemon
+exec 'rot8 --display DSI-1 --threshold 0.97 --x-file /sys/bus/iio/devices/iio:device2/in_accel_y_raw --y-file /sys/bus/iio/devices/iio:device2/in_accel_x_raw --y-invert'
 
 # Keyboard
 exec squeekboard
@@ -239,6 +248,8 @@ exec lisgd \
  -g "2,r,l, swaymsg workspace next" \
  -g "2,u,d, swaymsg exec swayphone_keyboard_hide" \
  -g "2,d,u, swaymsg exec swayphone_keyboard_show" \
+ -g "2,l,u, swaymsg fullscreen" \
+ -g "2,r,d, swaymsg kill" \
  -g "3,l,r, swaymsg focus right" \
  -g "3,r,l, swaymsg focus left" \
  -g "3,u,d, swaymsg focus down" \

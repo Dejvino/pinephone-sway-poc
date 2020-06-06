@@ -1,3 +1,10 @@
 [submodule "pinephone-toolkit"]
 	path = pinephone-toolkit
 	url = https://github.com/Dejvino/pinephone-toolkit
+[submodule "rot8"]
+	path = rot8
+	url = https://github.com/Dejvino/rot8.git
+	branch = accelerometer_param
+[submodule "lisgd"]
+	path = lisgd
+	url = https://git.sr.ht/~mil/lisgd
