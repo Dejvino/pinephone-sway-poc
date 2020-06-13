@@ -16,7 +16,7 @@ Open a terminal on the phone (either through SSH, the serial connection or direc
 $ sudo apk add waybar bemenu swaylock swayidle networkmanager htop pavucontrol
 
 # build tools
-$ sudo apk add git make meson ninja
+$ sudo apk add git make meson ninja cargo
 
 # installation
 $ git clone --recurse-submodules https://github.com/Dejvino/pinephone-sway-poc
@@ -39,6 +39,9 @@ The bars show you CPU/MEM usage, backlight brightness, time, etc. Touching them 
 ### Touch gestures
 Swiping two fingers up / down activates or hides the on-screen keyboard. Swiping two fingers left / right changes the active workspace. Three fingers change the active window in the direction of the swipe. Four fingers move the active window accordingly.
 
+### Screen Rotation
+The screen is automatically rotated based on the readings from the phone's built-in accelerometer.
+
 ## TIP!
 You can use this as a configs backup mechanism!
 ```
@@ -57,6 +60,7 @@ Running this command gathers the relevant config files from your running system 
 * * [terminal.yaml](https://source.puri.sm/btantau/squeekboard/blob/btantau-master-patch-76686/data/keyboards/terminal.yaml) - keyboard layout based on this improved version
 * [pinephone-toolkit](https://github.com/Dejvino/pinephone-toolkit) - various utilities for the PinePhone
 * [sxmo-lisgd](https://git.sr.ht/~mil/lisgd) - gesture detection daemon
+* [rot8](https://github.com/efernau/rot8) - screen rotation daemon using data from the accelerometer
 * htop (pmos package) - Processes monitoring
 * pavucontrol (pmos package) - PulseAudio control panel
 
