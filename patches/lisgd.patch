@@ -1,8 +1,65 @@
 diff --git a/lisgd.c b/lisgd.c
-index 9d3442b..78f6a3c 100644
+index 9d3442b..af49a80 100644
 --- a/lisgd.c
 +++ b/lisgd.c
-@@ -109,19 +109,21 @@ touchup(struct libinput_event *e)
+@@ -1,3 +1,4 @@
++#include <stdbool.h>
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <libinput.h>
+@@ -86,6 +87,51 @@ touchmotion(struct libinput_event *e)
+ 	yend[slot] = libinput_event_touch_get_y(tevent);
+ }
+ 
++bool display_rotation_matches(char* transform) {
++	char cmd[256];
++	snprintf(cmd, sizeof(cmd),
++		"swaymsg -t get_outputs | grep DSI-1 -A 50 | grep transform | grep %s",
++	 	transform);
++	return system(cmd) == 0;
++}
++
++enum rotation{normal, left, right, invert};
++enum rotation get_display_rotation()
++{
++	if (display_rotation_matches("normal"))
++		return normal;
++	if (display_rotation_matches("90"))
++		return left;
++	if (display_rotation_matches("180"))
++		return invert;
++	if (display_rotation_matches("270"))
++		return right;
++	return normal;
++}
++
++void rotate_move_based_on_display(int* move_x, int* move_y)
++{
++	enum rotation rot = get_display_rotation();
++	int t;
++	switch (get_display_rotation()) {
++		case normal:
++			break;
++		case left:
++			t = *move_x;
++			(*move_x) = (*move_y);
++			(*move_y) = -t;
++			break;
++		case right:
++			t = *move_x;
++			(*move_x) = -(*move_y);
++			(*move_y) = t;
++			break;
++		case invert:
++			(*move_y) = -(*move_y);
++			break;
++	}
++}
++
+ void
+ touchup(struct libinput_event *e)
+ {
+@@ -109,19 +155,27 @@ touchup(struct libinput_event *e)
  		);
  	}
  
@@ -23,16 +80,22 @@ index 9d3442b..78f6a3c 100644
 +		? (xend[slot] > xstart[slot] ? 1 : -1) : 0;
 +	int move_y = fabs(yend[slot] - ystart[slot]) > threshold
 +		? (yend[slot] > ystart[slot] ? 1 : -1) : 0;
-+	switch (move_x * 100 + move_y) {
-+	    case -100 -1: start = Right; end = Up; break;
-+	    case -100 +0: start = Right; end = Left; break;
-+	    case -100 +1: start = Right; end = Down; break;
-+	    case +0   -1: start = Down; end = Up; break;
-+	    case +0   +1: start = Up; end = Down; break;
-+	    case +100 -1: start = Left; end = Up; break;
-+	    case +100 +0: start = Left; end = Right; break;
-+	    case +100 +1: start = Left; end = Down; break;
-+	    case +0   +0:
++
++	rotate_move_based_on_display(&move_x, &move_y);
++
++#define X_DIR 4
++#define Y_DIR 1
++#define NODIR 0
++	switch (move_x * X_DIR + move_y * Y_DIR) {
++	    case -X_DIR -Y_DIR: start = Right; end = Up;    break;
++	    case -X_DIR +NODIR: start = Right; end = Left;  break;
++	    case -X_DIR +Y_DIR: start = Right; end = Down;  break;
++	    case +NODIR -Y_DIR: start = Down;  end = Up;    break;
++	    case +NODIR +Y_DIR: start = Up;    end = Down;  break;
++	    case +X_DIR -Y_DIR: start = Left;  end = Up;    break;
++	    case +X_DIR +NODIR: start = Left;  end = Right; break;
++	    case +X_DIR +Y_DIR: start = Left;  end = Down;  break;
++	    case +NODIR +NODIR:
 +	    default:
  		if (verbose) {
  			fprintf(stderr, "Input didn't match a known gesture\n");
