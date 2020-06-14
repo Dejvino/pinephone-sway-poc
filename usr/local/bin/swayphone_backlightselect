@@ -2,14 +2,14 @@
 
 BACKLIGHT=~/.backlight
 
-dialog --menu Backlight 0 0 10 \
+dialog --scrollbar --default-item `pptk-backlight get` --menu Backlight 0 0 10 \
 	10 FULL \
-	9  . \
-	8  . \
-	7  . \
-	6  . \
-	5  . \
-	4  . \
+	9  :::: \
+	8  :::. \
+	7  ::: \
+	6  ::. \
+	5  :: \
+	4  :. \
 	3  MIN \
 	2>$BACKLIGHT && pptk-backlight set `cat $BACKLIGHT`
 

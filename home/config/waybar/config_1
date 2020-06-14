@@ -134,7 +134,7 @@
         "format": "{icon} {percent}% ",
         "states": [0,50],
         "format-icons": ["", ""],
-	"on-click": "termite -e swayphone_backlightselect"
+	"on-click": "termite -e sleep 1; swayphone_backlightselect"
     },
     "tray": {
         "icon-size": 22
