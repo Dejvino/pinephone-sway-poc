@@ -2,6 +2,8 @@
 
 BACKLIGHT=~/.backlight
 
+usleep 250000 # term stabilization 
+
 dialog --scrollbar --default-item `pptk-backlight get` --menu Backlight 0 0 10 \
 	10 FULL \
 	9  :::: \

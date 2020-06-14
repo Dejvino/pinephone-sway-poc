@@ -39,7 +39,7 @@
         "format": " {:%e %b %Y}", // Icon: calendar-alt
         //"tooltip-format": "{:%e %B %Y}"
         "tooltip": true,
-	"on-click": "termite -e sleep 1; swayphone_menuselect"
+	"on-click": "termite -e swayphone_menuselect"
     },
 
     "battery": {
