@@ -12,7 +12,7 @@
     background: #282828;
     color: white;
     font-family: "awesome 5";
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
 }
 
@@ -34,7 +34,36 @@
     padding-right: 8px;
     margin-left: 2px;
     margin-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
+
+#disk,
+#backlight,
+#battery,
+#clock,
+#cpu,
+#custom-keyboard-layout,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#custom-alsa,
+#custom-kill,
+#custom.kill,
+#tray {
+	padding-top: 4px;
+	padding-bottom: 4px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+
+/*@media (width > 800px) {
+	#clock {
+	 padding: 10px;
+	}
+}*/
 
 /*modules style*/
 #disk {
@@ -69,6 +98,7 @@
     background: #eceff4;
     color: #282828;
     font-weight: bold;
+    font-size: 12px;
 }
 
 #cpu {

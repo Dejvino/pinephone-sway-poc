@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function rotate
+{
+	kill -10 `pidof waybar`
+}
+
+ROTFILE=/tmp/sway_rotation
+PREV=-1
+if [[ -f $ROTFILE ]]
+then
+	PREV=$(<$ROTFILE)
+fi
+TRANSFORM=`swaymsg -p -t get_outputs | grep -A 15 "Output DSI-1" | grep "Transform:"`
+NOW=-1
+
+if [[ $TRANSFORM == *"normal"* ]]; then
+	NOW=0
+elif [[ $TRANSFORM == *"90"* ]]; then
+	NOW=1
+elif [[ $TRANSFORM == *"180"* ]]; then
+	NOW=2
+elif [[ $TRANSFORM == *"270"* ]]; then
+	NOW=3
+fi
+
+echo $NOW > $ROTFILE
+
+if [[ $(($PREV % 2)) -eq $(($NOW % 2)) ]]; then
+	echo "No change."
+else
+	echo Rotated from $PREV to $NOW.
+	rotate
+fi
+

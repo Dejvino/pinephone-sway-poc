@@ -4,7 +4,7 @@
 [submodule "rot8"]
 	path = rot8
 	url = https://github.com/Dejvino/rot8.git
-	branch = accelerometer_param
+	branch = pinephone
 [submodule "lisgd"]
 	path = lisgd
 	url = https://git.sr.ht/~mil/lisgd

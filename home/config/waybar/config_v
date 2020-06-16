@@ -5,20 +5,28 @@
 
     "layer": "top",
 
-    "position": "top",
+    "position": "right",
+    "width": 100,
 
     "modules-left": [
-        "sway/workspaces",
+        "clock#time",
+        "clock#date",
+    	"battery",
         "tray"
     ],
   
     "modules-center": [
-        "clock#date"    
+        "sway/workspaces"
     ],
 
     "modules-right": [
-    	"battery",
-        "clock#time"
+    	"custom/kill",
+        "cpu",
+	"memory",
+//        "disk"
+        "network",
+    	"backlight",
+	"pulseaudio"
     ],
 
 //MODULES
@@ -65,35 +73,6 @@
 
 
 
-    "cpu": {
-        "interval": 5,
-        "tooltip": false,
-        "format": " {usage}%", //Icon: microchip
-        "states": {
-          "warning": 70,
-          "critical": 90
-        }
-    },
-
-   
-    "memory": {
-        "interval": 5,
-        "format": " {}%", // Icon: memory
-        "states": {
-            "warning": 70,
-            "critical": 90
-        }
-    },
-
-    "network": {
-        "interval": 5,
-        "format-wifi": "  {essid}", // Icon: wifi
-        "format-ethernet": "  {ifname}", // Icon: ethernet
-        "format-disconnected": "Disconnected",
-        "tooltip-format": "{ifname}: {ipaddr}",
-	"on-click": "swaymsg exec cmst"
-    },
-
     "sway/mode": {
         "format": "<span style=\"italic\">  {}</span>",
         "tooltip": true
@@ -118,6 +97,64 @@
             "focused": "",
             "default": ""
         }
+    },
+
+    "custom/kill": {
+	"on-click": "swaymsg kill",
+	"format": "[x]"
+    },
+
+    "battery": {
+        "interval": 1,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        // Connected to AC
+        "format": " {capacity}%", // Icon: bolt
+        // Not connected to AC
+        "format-discharging": " {capacity}%",
+        "format-icons": [
+            "", // Icon: battery-full
+            "", // Icon: battery-three-quarters
+            "", // Icon: battery-half
+            "", // Icon: battery-quarter
+            ""  // Icon: battery-empty
+        ],
+        "tooltip": false
+    },
+
+
+
+    "cpu": {
+        "interval": 5,
+        "tooltip": false,
+        "format": " {usage}%", //Icon: microchip
+        "states": {
+          "warning": 70,
+          "critical": 90
+        },
+	"on-click": "termite -e \"htop --sort-key=PERCENT_CPU\""
+    },
+
+   
+    "memory": {
+        "interval": 5,
+        "format": " {}%", // Icon: memory
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+	"on-click": "termite -e \"htop --sort-key=PERCENT_MEM\""
+    },
+
+    "network": {
+        "interval": 5,
+        "format-wifi": "  {essid}", // Icon: wifi
+        "format-ethernet": "  {ifname}", // Icon: ethernet
+        "format-disconnected": "Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}",
+	"on-click": "swaymsg exec \"termite -e nmtui\""
     },
 
     "pulseaudio": {
@@ -147,7 +184,8 @@
         // "device": "acpi_video1",
         "format": "{icon} {percent}% ",
         "states": [0,50],
-        "format-icons": ["", ""]
+        "format-icons": ["", ""],
+	"on-click": "termite -e swayphone_backlightselect"
     },
     "tray": {
         "icon-size": 22

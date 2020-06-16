@@ -111,34 +111,41 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Workspaces:
 #
+    set $W1 '1'
+    set $W2 '2'
     set $W3 '3:F'
+    set $W4 '4:4'
+    set $W5 '5:P'
+    set $W6 '6:6'
+    set $W7 '7:7'
+    set $W8 '8:M'
     set $W9 '9:K'
 
     for_window [app_id="firefox"] move workspace $W3; workspace $W3; border none
     for_window [app_id="keepassxc"] move workspace $W9; workspace $W9; border none
 
     # Switch to workspace
-    bindsym $mod+1 workspace 1
-    bindsym $mod+2 workspace 2
+    bindsym $mod+1 workspace $W1
+    bindsym $mod+2 workspace $W2
     bindsym $mod+3 workspace $W3
-    bindsym $mod+4 workspace 4
-    bindsym $mod+5 workspace 5
-    bindsym $mod+6 workspace 6
-    bindsym $mod+7 workspace 7
-    bindsym $mod+8 workspace 8
+    bindsym $mod+4 workspace $W4
+    bindsym $mod+5 workspace $W5
+    bindsym $mod+6 workspace $W6
+    bindsym $mod+7 workspace $W7
+    bindsym $mod+8 workspace $W8
     bindsym $mod+9 workspace $W9
-    bindsym $mod+0 workspace 10
+    bindsym $mod+0 workspace $W10
     # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace 1
-    bindsym $mod+Shift+2 move container to workspace 2
+    bindsym $mod+Shift+1 move container to workspace $W1
+    bindsym $mod+Shift+2 move container to workspace $W2
     bindsym $mod+Shift+3 move container to workspace $W3
-    bindsym $mod+Shift+4 move container to workspace 4
-    bindsym $mod+Shift+5 move container to workspace 5
-    bindsym $mod+Shift+6 move container to workspace 6
-    bindsym $mod+Shift+7 move container to workspace 7
-    bindsym $mod+Shift+8 move container to workspace 8
+    bindsym $mod+Shift+4 move container to workspace $W4
+    bindsym $mod+Shift+5 move container to workspace $W5
+    bindsym $mod+Shift+6 move container to workspace $W6
+    bindsym $mod+Shift+7 move container to workspace $W7
+    bindsym $mod+Shift+8 move container to workspace $W8
     bindsym $mod+Shift+9 move container to workspace $W9
-    bindsym $mod+Shift+0 move container to workspace 10
+    bindsym $mod+Shift+0 move container to workspace $W10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
@@ -233,7 +240,7 @@ input 1046:4097:Goodix_Capacitive_TouchScreen map_to_output DSI-1
 output DSI-1 transform 0
 
 # Display rotation daemon
-exec 'rot8 --display DSI-1 --threshold 0.97 --x-file /sys/bus/iio/devices/iio:device2/in_accel_y_raw --y-file /sys/bus/iio/devices/iio:device2/in_accel_x_raw --y-invert'
+exec 'rot8 --display DSI-1 --threshold 0.97 --x-file /sys/bus/iio/devices/iio:device2/in_accel_y_raw --y-file /sys/bus/iio/devices/iio:device2/in_accel_x_raw --y-invert --on-change swayphone_rotated'
 
 # Keyboard
 exec squeekboard
@@ -259,9 +266,13 @@ exec lisgd \
  -g "4,u,d, swaymsg move down" \
  -g "4,d,u, swaymsg move up"
 
-# Top and bottom status bar
-exec "waybar -c ~/.config/waybar/config_0 -b b0"
-exec "waybar -c ~/.config/waybar/config_1 -b b1"
+# Status Bar
+# side
+exec "rm /tmp/sway_rotation"
+exec "waybar -c ~/.config/waybar/config_v -b side"
+exec "sleep 2 ; kill -10 `pgrep -f 'waybar.*-b side'`"
+exec "waybar -c ~/.config/waybar/config_0 -b top"
+exec "waybar -c ~/.config/waybar/config_1 -b bottom"
 
 # Restore backlight
 exec 'swayphone_power_wakeup'
