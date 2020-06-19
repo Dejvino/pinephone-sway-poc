@@ -13,10 +13,10 @@ Flash the system onto the phone (either to an SD card or directly to the eMMC wi
 Open a terminal on the phone (either through SSH, the serial connection or directly on the screen) and run this:
 ```
 # components
-$ sudo apk add linux-headers waybar bemenu swaylock swayidle networkmanager htop pavucontrol
+$ sudo apk add waybar bemenu swaylock swayidle networkmanager htop pavucontrol
 
 # build tools
-$ sudo apk add git make meson ninja cargo
+$ sudo apk add git make meson ninja cargo linux-headers libinput-dev eudev-dev
 
 # installation
 $ git clone --recurse-submodules https://github.com/Dejvino/pinephone-sway-poc
