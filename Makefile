@@ -50,7 +50,7 @@ install_rot8:
 	cp rot8/target/release/rot8 /usr/local/bin/
 
 install_lisgd:
-	cd lisgd && git fetch origin && git reset --hard origin/master
+	cd lisgd && git fetch origin && git reset --hard 877beea2738df5f3a99da3f4e2ab5442b92baa80
 	cd lisgd && git apply ../patches/lisgd.patch
 	cd lisgd && make
 	cp lisgd/lisgd /usr/local/bin/
