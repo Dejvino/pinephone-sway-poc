@@ -12,8 +12,11 @@ Flash the system onto the phone (either to an SD card or directly to the eMMC wi
 
 Open a terminal on the phone (either through SSH, the serial connection or directly on the screen) and run this:
 ```
-# components
-$ sudo apk add waybar bemenu swaylock swayidle squeekboard networkmanager htop pavucontrol bash dialog
+# system components
+$ sudo apk add waybar bemenu swaylock swayidle squeekboard bash dialog tzdata
+
+# user components
+$ sudo apk add networkmanager htop pavucontrol
 
 # build tools
 $ sudo apk add git make meson ninja cargo linux-headers libinput-dev eudev-dev
