@@ -4,14 +4,18 @@ BACKLIGHT=~/.backlight
 
 usleep 250000 # term stabilization 
 
-dialog --scrollbar --default-item `pptk-backlight get` --menu Backlight 0 0 10 \
-	10 FULL \
-	9  :::: \
-	8  :::. \
-	7  ::: \
-	6  ::. \
-	5  :: \
-	4  :. \
-	3  MIN \
-	2>$BACKLIGHT && pptk-backlight set `cat $BACKLIGHT`
+DEFAULT=$(((`pptk-backlight get_percent`+5)/10*10))
+
+dialog --scrollbar --default-item $DEFAULT --menu Backlight 0 0 10 \
+	100 FULL \
+	90  :::: \
+	80  :::. \
+	70  ::: \
+	60  ::. \
+	50  :: \
+	40  :. \
+	30  : \
+	20  . \
+	10  MIN \
+	2>$BACKLIGHT && pptk-backlight set_percent `cat $BACKLIGHT`
 
