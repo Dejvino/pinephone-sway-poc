@@ -217,19 +217,24 @@ bindsym $mod+r mode "resize"
 set $pplock   'swayphone_power_sleep'
 set $ppunlock 'swayphone_power_wakeup'
 set $lockapp swaylock
-set $lock   '$lockapp -f -c 000000'
+set $lock   '$lockapp -f -c 555555'
 set $unlock 'killall $lockapp'
 ## wish this worked...
 #bindsym XF86PowerOff exec $lock
 #bindsym --locked XF86PowerOff exec $unlock
 # alternative:
-bindcode 124 exec $lock; exec $pplock
-bindcode --locked 124 exec $unlock; exec $ppunlock
+bindcode 124 exec '$lock ; swayphone_power_presleep'
+bindcode --locked 124 exec '$unlock ; swayphone_power_wakeup'
 
 exec swayidle -w \
-          timeout 15 'swaymsg exec $lock; $pplock' \
-               resume 'swaymsg exec $unlock; $ppunlock' \
-          before-sleep 'swaymsg exec $lock; $pplock'
+          timeout 30 'pptk-backlight set_percent 10' \
+	       resume 'swayphone_power_wakeup' \
+          timeout 60 'swayphone_power_rest' \
+               resume 'swayphone_power_wakeup' \
+          timeout 120 'swayphone_power_sleep' \
+          before-sleep 'swayphone_power_presleep' \
+          after-resume 'killall swaylock; swayphone_power_wakeup' \
+	  unlock 'killall swaylock'
 
 # Scale the touchscreen LCD UI
 output DSI-1 scale 2

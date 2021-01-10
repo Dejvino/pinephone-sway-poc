@@ -1,0 +1,7 @@
+#!/bin/bash
+
+pptk-led set red 0
+pptk-led set green 0
+pptk-led set blue 1
+pptk-backlight set 0
+
