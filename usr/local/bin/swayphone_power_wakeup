@@ -8,6 +8,10 @@ pptk-led set green 0
 pptk-led set blue 0
 pptk-cpu-sleep disable
 
+if [[ ! -e $BACKLIGHT_FILE ]]; then
+        echo $BACKLIGHT_MIN > $BACKLIGHT_FILE
+fi
+
 # restore last saved backlight level
 BACKLIGHT=$((`cat $BACKLIGHT_FILE` >= $BACKLIGHT_MIN ? `cat $BACKLIGHT_FILE` : $BACKLIGHT_MIN))
 pptk-backlight set_percent $BACKLIGHT

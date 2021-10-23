@@ -1,32 +1,34 @@
 # pinephone-sway-poc
 Sway UI configured for PINE64 PinePhone (Proof Of Concept)
 
-You can find ready-made config files, scripts and installation instructions on how to set up Sway on Arch Linux ARM or postmarketOS and use it with a PinePhone.
+You can find ready-made config files, scripts and installation instructions on how to set up Sway on Arch Linux ARM and use it with a PinePhone.
 
 ![Screenshots](./screenshots.png)
 
 ## Install
-### postmarketOS
-Start with a [postmarketOS](https://wiki.postmarketos.org/wiki/PINE64_PinePhone_(pine64-pinephone)) for PinePhone image with `postmarketos-ui-sway` installed. Either use the pre-built demo image or build a custom one with `pmbootstrap`.
+### Arch Linux ARM
+Start with a [Pine64-Arch](https://github.com/dreemurrs-embedded/Pine64-Arch/) image flashed to the phone and get SSH access.
 
-Flash the system onto the phone (either to an SD card or directly to the eMMC with Jumpdrive).
+Disable the default `phosh.service` so that it doesn't get started on boot (`sudo systemctl disable --now phosh.service`).
 
-Open a terminal on the phone (either through SSH, the serial connection or directly on the screen) and run this:
+Run this installation:
+
 ```bash
 # system components
-$ sudo apk add waybar bemenu swaylock swayidle squeekboard bash dialog tzdata
-
-# user components
-$ sudo apk add networkmanager htop pavucontrol
+$ sudo pacman -S sway waybar bemenu bemenu-wayland swaylock swayidle squeekboard bash dialog tzdata alacritty
 
 # build tools
-$ sudo apk add git make meson ninja cargo linux-headers libinput-dev eudev-dev
+$ sudo pacman -S git make meson ninja cargo linux-headers 
+
+# user components
+$ sudo pacman -S networkmanager htop pavucontrol
+
+# theme components
+$ sudo pacman -S ttf-font-awesome
 ```
 
-### Arch Linux ARM
-Start with a [Pine64-Arch](https://github.com/dreemurrs-embedded/Pine64-Arch/) image flashed to the phone. You'll need the `sway` package and most of what is mentioned in the `postmarketOS` section. Disable (or remove) the default `phosh` package so that it doesn't get loaded on boot.
-
 ### Common
+
 ```bash
 # installation
 $ git clone --recurse-submodules https://github.com/Dejvino/pinephone-sway-poc

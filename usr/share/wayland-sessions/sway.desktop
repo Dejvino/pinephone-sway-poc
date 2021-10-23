@@ -3,7 +3,7 @@ Name=Sway
 Name[en]=Sway
 Comment=This session logs you into Sway
 Comment[en]=This session logs in you into Sway
-Exec=elogind-inhibit --what=shutdown:handle-power-key --mode=block dbus-run-session /usr/bin/sway
+Exec=systemd-inhibit --what=shutdown:handle-power-key --mode=block dbus-run-session /usr/bin/sway
 #Exec=dbus-run-session /usr/bin/sway
 TryExec=/usr/bin/sway
 Icon=
